@@ -1,0 +1,86 @@
+#!/usr/bin/with-contenv bash
+
+## Set defaults for environmental variables in case they are undefined
+USER=${USER:=rstudio}
+PASSWORD=${PASSWORD:=rstudio}
+USERID=${USERID:=1000}
+ROOT=${ROOT:=FALSE}
+GROUP=${GROUP:=$USER}
+GROUPID=${GROUPID:=$USERID}
+
+echo USER=$USER USERID=$USERID GROUP=$GROUP GROUPID=$GROUPID
+
+if [ "$USERID" -ne 1000 ]
+## Configure user with a different USERID if requested.
+  then
+	usermod -u $USERID rstudio
+	groupmod -g $USERID rstudio
+	echo "USERID is now $USERID"
+fi
+
+
+if [ "$USER" != "rstudio" ] ; then
+	## RENAME the user
+	usermod -l $USER rstudio
+	usermod -m -d /home/$USER $USER 
+	groupmod -n $USER rstudio 
+	echo "USER is now $USER ($USERID)"sdb/s-A3E0CAE3/.rstudio-lock-41c29-7785d54028f4-207-7fe
+fi
+
+
+## Add a password to user
+echo "$USER:$PASSWORD" | chpasswd
+
+# Use Env flag to know if user should be added to sudoers
+if [ "$ROOT" == "TRUE" ]
+  then
+	adduser $USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	echo "$USER added to sudoers"
+fi
+
+
+# This might be a bit more complicated than necessary, since I don't think anyone cares what the GROUP name is
+if [ "$GROUP" != "$USER" -o "$GROUPID" != "$USERID" ] ; then
+    if [ "$GROUP" != "$USER" ] ; then
+      groupmod -n $GROUP $USER
+    fi
+    if [ "$GROUPID" != "$USERID" ] ; then
+	  groupmod -g $GROUPID $GROUP
+    fi
+	echo "login group is now $GROUP ($GROUPID)"
+fi
+
+ 
+if [ "$GROUP_1" != "" -a "$GROUPID_1" !=  "" ]
+  then
+	groupadd -g $GROUPID_1 $GROUP_1
+	usermod -a -G $GROUP_1 $USER
+	echo "$USER is now member of $GROUP_1"
+fi
+
+
+if [ ! -d /home/$USER ]
+  then
+	mkdir /home/$USER
+fi
+
+if [ ! -d /home/$USER/R/3.3/library ]
+  then
+    mkdir -p /home/$USER/R/3.3/library
+	chown $USER:$GROUP /home/$USER/R
+fi
+
+## add these to the global environment so they are available to the RStudio user 
+echo "HTTR_LOCALHOST=$HTTR_LOCALHOST" >> /etc/R/Renviron.site
+echo "HTTR_PORT=$HTTR_PORT" >> /etc/R/Renviron.site
+
+## fixup ownership of home directory when this is a mounted volume
+chown $USER:$GROUP /home/$USER
+
+
+## use 775 (instead of default 755) to allow ACLs to control permission
+chmod 775 /home/$USER
+if [ -d /home/$USER/.rstudio ] ; then
+  chmod 775 /home/$USER/.rstudio
+fi
+

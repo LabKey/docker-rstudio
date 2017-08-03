@@ -1,0 +1,2 @@
+docker pull rocker/rstudio
+docker build --no-cache $* -t labkey/rstudio-base .

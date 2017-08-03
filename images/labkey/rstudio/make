@@ -1,0 +1,4 @@
+pushd ../rstudio-base
+./make $*
+popd
+docker build $* -t labkey/rstudio .

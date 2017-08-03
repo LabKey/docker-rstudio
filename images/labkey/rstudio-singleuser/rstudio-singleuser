@@ -1,0 +1,4 @@
+USER=$1
+USER=${USER:=rstudio}
+RSERVER="/usr/lib/rstudio-server/bin/rserver --server-daemonize 0 --auth-none 1 --server-working-dir ~ --www-port 8787"
+su -l $USER -c "$RSERVER"
