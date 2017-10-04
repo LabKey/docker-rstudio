@@ -16,7 +16,7 @@ COPY Rprofile.site /Rprofile.site.tmp
 RUN dos2unix /Rprofile.site.tmp && \
     cat /Rprofile.site.tmp >> /usr/local/lib/R/etc/Rprofile.site && \
     rm /Rprofile.site.tmp
-RUN echo R_LIBS_USER='~/R/3.3/library' >> /usr/local/lib/R/etc/Renviron
+RUN echo R_LIBS_USER='~/R/3.4/library' >> /usr/local/lib/R/etc/Renviron
 
 COPY cleanupSessionFiles.sh /
 RUN dos2unix /cleanupSessionFiles.sh
