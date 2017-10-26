@@ -7,6 +7,7 @@ USERID=${USERID:=1000}
 ROOT=${ROOT:=FALSE}
 GROUP=${GROUP:=$USER}
 GROUPID=${GROUPID:=$USERID}
+RVERSION=3.4
 
 echo USER=$USER USERID=$USERID GROUP=$GROUP GROUPID=$GROUPID
 
@@ -64,9 +65,9 @@ if [ ! -d /home/$USER ]
 	mkdir /home/$USER
 fi
 
-if [ ! -d /home/$USER/R/3.3/library ]
+if [ ! -d /home/$USER/R/$RVERSION/library ]
   then
-    mkdir -p /home/$USER/R/3.3/library
+    mkdir -p /home/$USER/R/$RVERSION/library
 	chown $USER:$GROUP /home/$USER/R
 fi
 
