@@ -1,5 +1,5 @@
 #!/bin/bash
 pushd ../rstudio-base
-./make $*
+./make 3.4.2
 popd
-docker build $* -t labkey/rstudio .
+docker build $* -t labkey/rstudio:3.4.2 .
