@@ -1,2 +1,10 @@
 #!/bin/bash
+<<<<<<< HEAD
+export VERSION=${1-latest}
+echo build using rocker/rstudio:${VERSION}
+sed < Dockerfile.template "s/rstudio:latest/rstudio:${VERSION}/" > Dockerfile
+echo creating labkey/rstudio:${VERSION}
+docker build -t labkey/rstudio-base:${VERSION} .
+=======
 docker build $* -t labkey/rstudio-base .
+>>>>>>> origin/develop
