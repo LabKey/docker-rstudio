@@ -1,4 +1,5 @@
-FROM rocker/rstudio:latest
+ARG VERSION
+FROM rocker/rstudio:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
