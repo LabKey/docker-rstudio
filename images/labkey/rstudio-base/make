@@ -3,6 +3,8 @@
 echo requires docker 17.05.0 or greater
 
 export VERSION=${1-latest}
+shift
+
 echo build using rocker/rstudio:${VERSION}
 echo creating labkey/rstudio:${VERSION}
-docker build --build-arg VERSION=${VERSION} -t labkey/rstudio-base:${VERSION} .
+docker build $* --build-arg VERSION=${VERSION} -t labkey/rstudio-base:${VERSION} .
