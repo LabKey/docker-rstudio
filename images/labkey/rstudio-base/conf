@@ -54,7 +54,7 @@ fi
  
 if [ "$GROUP_1" != "" -a "$GROUPID_1" !=  "" ]
   then
-	groupadd -g $GROUPID_1 $GROUP_1
+	groupadd -g $GROUPID_1 $GROUP_1mr
 	usermod -a -G $GROUP_1 $USER
 	echo "$USER is now member of $GROUP_1"
 fi
@@ -68,8 +68,8 @@ fi
 if [ ! -d /home/$USER/R/$RVERSION/library ]
   then
     mkdir -p /home/$USER/R/$RVERSION/library
-	chown $USER:$GROUP /home/$USER/R
 fi
+chown -R $USER:$GROUP /home/$USER/R
 
 ## add these to the global environment so they are available to the RStudio user 
 echo "HTTR_LOCALHOST=$HTTR_LOCALHOST" >> /etc/R/Renviron.site
