@@ -54,7 +54,7 @@ fi
  
 if [ "$GROUP_1" != "" -a "$GROUPID_1" !=  "" ]
   then
-	groupadd -g $GROUPID_1 $GROUP_1mr
+	groupadd -g $GROUPID_1 $GROUP_1
 	usermod -a -G $GROUP_1 $USER
 	echo "$USER is now member of $GROUP_1"
 fi
