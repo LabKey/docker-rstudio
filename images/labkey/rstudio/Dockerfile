@@ -1,4 +1,4 @@
-ARG VERSION
+ARG VERSION=latest
 FROM labkey/rstudio-base:${VERSION}
 
 RUN apt-get update && \
