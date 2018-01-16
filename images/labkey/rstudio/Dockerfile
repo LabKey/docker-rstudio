@@ -3,7 +3,7 @@ FROM labkey/rstudio-base:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
-	r-base r-recommended r-base-dev curl libcurl4-openssl-dev \
+	curl libcurl4-openssl-dev \
         libgd2-xpm-dev libcairo2 libcairo2-dev libxt-dev pandoc \
         libssl-dev openssl 
 
