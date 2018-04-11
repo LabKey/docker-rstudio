@@ -8,4 +8,7 @@ RUN apt-get update && \
         libssl-dev openssl 
 
 COPY install.R /
-RUN dos2unix install.R; Rscript install.R; chmod -R 755 /usr/local/lib/R/site-library
+RUN dos2unix install.R && \
+    Rscript install.R && \
+    chmod -R 755 /usr/local/lib/R/site-library
+
