@@ -9,6 +9,5 @@ RUN apt-get update && \
 
 COPY install.R /
 RUN dos2unix install.R && \
-    Rscript install.R && \
+    R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
-

@@ -3,13 +3,13 @@ FROM rocker/rstudio:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev
+    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb
 
 COPY conf /etc/cont-init.d/
 RUN dos2unix /etc/cont-init.d/conf
 
 COPY install.R /
-RUN Rscript install.R &&  \
+RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/library && \
     chmod -R 755 /usr/local/lib/R/site-library
 
