@@ -1,4 +1,5 @@
 library("rjson")
+library("httr")
 library("Rlabkey")
 library("rstudioapi")
 
@@ -19,9 +20,13 @@ labkey.init <- function(apiKey="")
 .First <- function()
 {
     labkey.init()
+    email <- options("labkey.user.email")
+    # backward compatibility (delete after 18.2)
+    if (is.null(email) && exists('labkey.properties') && !is.null(labkey.properties$user$email))
+        email <- labkey.properties$user$email
     print("Welcome to RStudio Server")
-    if (exists('labkey.properties') && !is.null(labkey.properties$user$email))
-      print(paste("started by", labkey.properties$user$email, "at", date(), sep=" "))
+    if (!is.null(email))
+      print(paste("started by", email, "at", date(), sep=" "))
     else
        print(date())
 }
