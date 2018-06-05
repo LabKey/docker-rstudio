@@ -5,7 +5,8 @@ MOUNT=$1
 # any form or by any electronic or mechanical means without written permission from LabKey Corporation.
 #
 
-FILE=$MOUNT"/.rstudio/session-persistent-state"
-if [ -f "$FILE" ]
-  then sed -i 's/abend="1"/abend="0"/' "$FILE"
-fi
+pushd $MOUNT/.rstudio
+
+find . -name session-persistent-state -type f -exec  sed -i 's/abend="1"/abend="0"/' {} +
+
+popd
