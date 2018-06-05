@@ -10,11 +10,18 @@ labkey.init <- function(apiKey="")
   else if (file.exists("~/.Rsession"))
     source("~/.Rsession")
   if (apiKey!="")
+  {
+    options(labkey.apiKey=apiKey);
     labkey.setDefaults(apiKey=apiKey);
+  }
   hasViewer <- FALSE
   try (hasViewer <- rstudioapi::hasFun("viewer"))
-  if (exists('labkey.properties') && !is.null(labkey.properties$url$base) && hasViewer)
-    rstudioapi::viewer(paste(labkey.properties$url$base,"rstudio-viewer.view",sep='/'));
+  baseUrl <- options('labkey.baseUrl');
+  # backward compatibility (delete after 18.2)
+  if (is.null(baseUrl) && exists('labkey.properties') && !is.null(labkey.properties$url$base))
+    baseUrl <- labkey.properties$url$base;
+  if (hasViewer && !is.null(baseUrl))
+    rstudioapi::viewer(paste(baseUrl,"rstudio-viewer.view",sep='/'));
 }
 
 .First <- function()
