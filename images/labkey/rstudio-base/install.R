@@ -14,5 +14,5 @@
 #  limitations under the License.
 ##
 install.packages(c('rstudioapi', "rjson", 'httr', 'jsonlite', 'Rcpp'), repos='http://cran.fhcrc.org/', lib='/usr/local/lib/R/library')
-install.packages("Rlabkey_2.2.3.tar.gz", repos = NULL, type = "source", lib='/usr/local/lib/R/library')
+install.packages("Rlabkey_2.2.2.tar.gz", repos = NULL, type = "source", lib='/usr/local/lib/R/library')
 

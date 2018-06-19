@@ -33,4 +33,4 @@ install.packages(c(
   "rsconnect"
   ),
   repos='http://cran.fhcrc.org/')
-install.packages("Rlabkey_2.2.3.tar.gz", repos = NULL, type = "source")
+install.packages("Rlabkey_2.2.2.tar.gz", repos = NULL, type = "source")
