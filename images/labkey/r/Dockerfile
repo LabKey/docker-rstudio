@@ -25,7 +25,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     r-cran-rcurl \
     r-cran-readr \
     r-cran-reshape2 \
-    r-cran-rjson \
     r-cran-markdown \
     r-cran-scales \
     r-cran-stringr \

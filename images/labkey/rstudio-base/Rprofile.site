@@ -1,4 +1,3 @@
-library("rjson")
 library("httr")
 library("Rlabkey")
 library("rstudioapi")
