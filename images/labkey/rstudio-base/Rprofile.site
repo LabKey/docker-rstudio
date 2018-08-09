@@ -22,7 +22,7 @@ labkey.init <- function(apiKey="")
   if (hasViewer && !is.null(baseUrl))
     rstudioapi::viewer(paste(baseUrl,"rstudio-viewer.view",sep='/'));
     
-  if (exists("labkey.extend")) labkey.extend()
+  if (exists("labkey.init.extend")) labkey.init.extend()
 }
 
 .First <- function()
