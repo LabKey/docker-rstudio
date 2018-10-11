@@ -1,0 +1,1 @@
+docker build --build-arg VERSION=3.5.1 -t labkey/rsandbox:3.5.1 .

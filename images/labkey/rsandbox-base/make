@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo requires docker 17.05.0 or greater
+
+## NOTE VERSION is used for tagging purpose only, actual R version determined by rocker/r-base
+## VERSION should be updated to actual latest version
+export VERSION=${1-3.5.1}
+shift
+
+echo creating labkey/rsandbox-base:${VERSION}
+docker build $* --build-arg -t labkey/rsandbox-base:${VERSION} .
