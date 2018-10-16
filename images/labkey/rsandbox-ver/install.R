@@ -1,5 +1,5 @@
 ##
-#  Copyright (c) 2018 LabKey Corporation
+#  Copyright (c) 2017 LabKey Corporation
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,35 +14,14 @@
 #  limitations under the License.
 ##
 
-repos.options <- getOption("repos")
-repos.options["CRAN"] <- 'http://cran.fhcrc.org/'
-options(repos = repos.options)
+install.packages("PKI",repos="http://rforge.net")
 
-if (!require("pacman")) install.packages("pacman")
+install.packages("Rlabkey", , repos='http://cran.fhcrc.org/');
 
-pacman::p_load(bitops,
-    Cairo,
-    data.table,
-    digest,
-    dtplyr,
-    dplyr,
-    ggplot2,
-    htmlwidgets,
-    httr,
-    knitr,
-    jsonlite,
-    lubridate,
-    pacman,
-    plotly,
-    Rcpp,
-    RCurl,
-    readr,
-    reshape2,
-    Rlabkey,
-    rmarkdown,
-    scales,
-    stringr,
-    tidyr
-)
-
-source("https://bioconductor.org/biocLite.R")
+install.packages(c("httr", "jsonlite", "Rlabkey", "Cairo", "ggplot2", "plotly", "readr", "data.table",
+  "highr",
+  "formatR",
+  "markdown",
+  "yaml",
+  "knitr",
+  "rmarkdown"), repos='http://cran.fhcrc.org/')

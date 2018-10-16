@@ -1,5 +1,5 @@
 ##
-#  Copyright (c) 2017 LabKey Corporation
+#  Copyright (c) 2018 LabKey Corporation
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,18 +14,23 @@
 #  limitations under the License.
 ##
 
-install.packages("PKI",repos="http://rforge.net")
+repos.options <- getOption("repos")
+repos.options["CRAN"] <- 'http://cran.fhcrc.org/'
+options(repos = repos.options)
 
-install.packages("Rlabkey", , repos='http://cran.fhcrc.org/');
+if (!require("pacman")) install.packages("pacman")
 
-#install.packages(c(
-#  "httr", "jsonlite", "Rlabkey", "Cairo", "ggplot2", "plotly", "readr", "data.table",
-#  "evaluate",
-#  "highr",
-#  "formatR",
-#  "markdown",
-#  "yaml",
-#  "htmltools",
-#  "knitr",
-#  "rmarkdown"
-#  ), repos='http://cran.fhcrc.org/')
+pacman::p_load(
+    Cairo,
+    data.table,
+    ggplot2,
+    httr,
+    knitr,
+    jsonlite,
+    pacman,
+    plotly,
+    readr,
+    Rlabkey,
+    rmarkdown
+)
+
