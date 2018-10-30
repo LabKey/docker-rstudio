@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo requires docker 17.05.0 or greater
+
+echo creating labkey/rsandbox:latest
+docker build $* -t labkey/rsandbox:latest .
