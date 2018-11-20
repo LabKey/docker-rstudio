@@ -1,1 +1,1 @@
-docker build --build-arg -t labkey/rsandbox-base:3.5.1 .
+docker build -t labkey/rsandbox-base:3.5.1 .
