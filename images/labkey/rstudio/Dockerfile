@@ -1,4 +1,4 @@
-ARG VERSION=latest
+ARG VERSION=3.6.3
 FROM labkey/rstudio-base:${VERSION}
 
 RUN apt-get update && \

@@ -1,4 +1,5 @@
-FROM rocker/r-ver
+ARG VERSION=3.6.3
+FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common

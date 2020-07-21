@@ -1,5 +1,5 @@
-ARG VERSION=latest
-FROM ubuntu:18.04
+ARG VERSION=18.04
+FROM ubuntu:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common
