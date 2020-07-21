@@ -1,5 +1,4 @@
-ARG VERSION=3.6.3
-FROM labkey/rstudio-base:${VERSION}
+FROM labkey/rstudio-base
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
