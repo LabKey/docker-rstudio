@@ -3,7 +3,9 @@ FROM rocker/rstudio:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb
+    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY conf /etc/cont-init.d/
 RUN dos2unix /etc/cont-init.d/conf

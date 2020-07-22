@@ -2,7 +2,7 @@
 
 echo requires docker 17.05.0 or greater
 
-export VERSION=${1-3.4.2}
+export VERSION=${1-3.6.3}
 shift
 
 echo creating labkey/rsandbox:${VERSION}

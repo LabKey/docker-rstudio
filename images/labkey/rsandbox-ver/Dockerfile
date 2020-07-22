@@ -7,7 +7,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
 	    curl libcurl4-openssl-dev \
         libgd-dev libcairo2 libcairo2-dev libxt-dev pandoc \
-        libssl-dev openssl
+        libssl-dev openssl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 ## Set a default user. Available via runtime flag `--user docker`
 ## Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
