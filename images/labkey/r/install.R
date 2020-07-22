@@ -15,7 +15,7 @@
 ##
 
 repos.options <- getOption("repos")
-repos.options["CRAN"] <- 'http://cran.fhcrc.org/'
+repos.options["CRAN"] <- 'https://cran.rstudio.com/'
 options(repos = repos.options)
 
 if (!require("pacman")) install.packages("pacman")

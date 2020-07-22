@@ -13,4 +13,4 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 ##
-install.packages(c('Rlabkey','rstudioapi'), repos='http://cran.fhcrc.org/', lib='/usr/local/lib/R/library')
+install.packages(c('Rlabkey','rstudioapi'), repos='https://cran.rstudio.com/', lib='/usr/local/lib/R/library')

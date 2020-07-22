@@ -32,4 +32,4 @@ install.packages(c(
   "packrat",
   "rsconnect"
   ),
-  repos='http://cran.fhcrc.org/')
+  repos='https://cran.rstudio.com/')
