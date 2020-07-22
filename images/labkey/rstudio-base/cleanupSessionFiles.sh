@@ -16,8 +16,8 @@ MOUNT=$1
 # limitations under the License.
 #
 
-pushd $MOUNT/.rstudio
+pushd "$MOUNT"/.rstudio || exit 1
 
 find . -name session-persistent-state -type f -exec  sed -i 's/abend="1"/abend="0"/' {} +
 
-popd
+popd || exit 1
