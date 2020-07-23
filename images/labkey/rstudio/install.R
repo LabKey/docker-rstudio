@@ -16,7 +16,7 @@
 install.packages("PKI",repos="http://rforge.net")
 install.packages(c(
   "Rlabkey", "Cairo", "ggplot2", "plotly", "httr", "readr", "data.table",
-# packages rstudio uses
+# packages rstudio uses,
   "evaluate",
   "digest",
   "formatR",
@@ -32,4 +32,4 @@ install.packages(c(
   "packrat",
   "rsconnect"
   ),
-  repos='http://cran.fhcrc.org/')
+  repos='https://cran.rstudio.com/')

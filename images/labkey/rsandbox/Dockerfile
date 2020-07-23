@@ -1,15 +1,16 @@
-FROM rocker/r-ver
+ARG VERSION=3.6.3
+FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common
-
-RUN apt-get install -y --no-install-recommends build-essential dos2unix libopenblas-dev libxml2-dev nano pandoc procps xvfb x11-common
-
-RUN apt-get install -y --no-install-recommends sudo && \
-    apt-get install -y --no-install-recommends  \
-	    curl libcurl4-openssl-dev \
-        libcairo2 libcairo2-dev libxt-dev \
-        libssl-dev openssl
+	apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common && \
+	apt-get install -y --no-install-recommends build-essential dos2unix libopenblas-dev libxml2-dev nano pandoc procps xvfb x11-common && \
+	apt-get install -y --no-install-recommends sudo && \
+	apt-get install -y --no-install-recommends  \
+		curl libcurl4-openssl-dev \
+		libcairo2 libcairo2-dev libxt-dev \
+		libssl-dev openssl && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 ## Set a default user. Available via runtime flag `--user docker`
 ## Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library

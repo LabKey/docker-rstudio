@@ -2,7 +2,7 @@
 
 ## Set defaults for environmental variables in case they are undefined
 USER=${USER:=rstudio}
-PASSWORD=${PASSWORD:=rstudio}
+PASSWORD=${PASSWORD:=notrstudio}
 USERID=${USERID:=1000}
 ROOT=${ROOT:=FALSE}
 GROUP=${GROUP:=$USER}

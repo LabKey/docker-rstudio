@@ -16,7 +16,7 @@
 
 install.packages("PKI",repos="http://rforge.net")
 
-install.packages("Rlabkey", , repos='http://cran.fhcrc.org/');
+install.packages("Rlabkey", , repos='https://cran.rstudio.com/');
 
 install.packages(c("httr", "jsonlite", "Rlabkey", "Cairo", "ggplot2", "plotly", "readr", "data.table",
   "highr",
@@ -24,4 +24,4 @@ install.packages(c("httr", "jsonlite", "Rlabkey", "Cairo", "ggplot2", "plotly", 
   "markdown",
   "yaml",
   "knitr",
-  "rmarkdown"), repos='http://cran.fhcrc.org/')
+  "rmarkdown"), repos='https://cran.rstudio.com/')

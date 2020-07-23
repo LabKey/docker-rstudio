@@ -1,11 +1,12 @@
-ARG VERSION=latest
-FROM labkey/rstudio-base:${VERSION}
+FROM labkey/rstudio-base
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
 	curl libcurl4-openssl-dev \
-        libgd2-xpm-dev libcairo2 libcairo2-dev libxt-dev pandoc \
-        libssl-dev openssl 
+        libgd-dev libcairo2 libcairo2-dev libxt-dev pandoc \
+        libssl-dev openssl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY install.R /
 RUN dos2unix install.R && \
