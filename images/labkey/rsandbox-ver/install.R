@@ -14,14 +14,26 @@
 #  limitations under the License.
 ##
 
-install.packages("PKI",repos="http://rforge.net")
+repos.options <- getOption("repos")
+repos.options["CRAN"] <- 'https://cran.rstudio.com/'
+options(repos = repos.options)
 
-install.packages("Rlabkey", , repos='https://cran.rstudio.com/');
+if (!require("pacman")) install.packages("pacman")
 
-install.packages(c("httr", "jsonlite", "Rlabkey", "Cairo", "ggplot2", "plotly", "readr", "data.table",
-  "highr",
-  "formatR",
-  "markdown",
-  "yaml",
-  "knitr",
-  "rmarkdown"), repos='https://cran.rstudio.com/')
+pacman::p_load(
+    Cairo,
+    data.table,
+    formatR,
+    ggplot2,
+    highr,
+    httr,
+    jsonlite,
+    knitr,
+    markdown,
+    pacman,
+    plotly,
+    readr,
+    Rlabkey,
+    rmarkdown,
+    yaml
+)

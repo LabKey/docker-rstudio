@@ -1,11 +1,14 @@
 ARG VERSION=3.6.3
 FROM rocker/rstudio:${VERSION}
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    	apt-utils \
+		dos2unix \
+		procps \
+		libxml2-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY conf /etc/cont-init.d/
 RUN dos2unix /etc/cont-init.d/conf
@@ -19,7 +22,9 @@ COPY Rprofile.site /Rprofile.site.tmp
 RUN dos2unix /Rprofile.site.tmp && \
     cat /Rprofile.site.tmp >> /usr/local/lib/R/etc/Rprofile.site && \
     rm /Rprofile.site.tmp
-RUN echo "R_LIBS_USER=~/R/$(R --version | grep -Eo '[0-9]+[.]+[0-9]+')/library" >> /usr/local/lib/R/etc/Renviron
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN echo "R_LIBS_USER=~/R/$(R --version | grep -Eo '[0-9]+[.]+[0-9]+' | head -n 1)/library" >> /usr/local/lib/R/etc/Renviron
 
 COPY cleanupSessionFiles.sh /
 RUN dos2unix /cleanupSessionFiles.sh

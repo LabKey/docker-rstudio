@@ -13,23 +13,36 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 ##
-install.packages("PKI",repos="http://rforge.net")
-install.packages(c(
-  "Rlabkey", "Cairo", "ggplot2", "plotly", "httr", "readr", "data.table",
-# packages rstudio uses,
-  "evaluate",
-  "digest",
-  "formatR",
-  "highr",
-  "markdown",
-  "yaml",
-  "htmltools",
-  "caTools",
-  "knitr",
-  "rmarkdown",
-  "RJSONIO",
-  "rstudioapi",
-  "packrat",
-  "rsconnect"
-  ),
-  repos='https://cran.rstudio.com/')
+
+repos.options <- getOption("repos")
+repos.options["CRAN"] <- 'https://cran.rstudio.com/'
+options(repos = repos.options)
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(
+    Cairo,
+    data.table,
+    ggplot2,
+    httr,
+    jsonlite,
+    knitr,
+    pacman,
+    plotly,
+    readr,
+    rmarkdown
+    # packages rstudio uses
+    evaluate,
+    digest,
+    formatR,
+    highr,
+    markdown,
+    yaml,
+    htmltools,
+    caTools,
+    knitr,
+    RJSONIO,
+    packrat,
+    rsconnect,
+    PKI
+)

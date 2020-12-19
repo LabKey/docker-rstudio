@@ -13,4 +13,15 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 ##
-install.packages(c('Rlabkey','rstudioapi','shiny'), repos='https://cran.rstudio.com/', lib='/usr/local/lib/R/library')
+
+repos.options <- getOption("repos")
+repos.options["CRAN"] <- 'https://cran.rstudio.com/'
+options(repos = repos.options)
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(
+    Rlabkey,
+	rstudioapi,
+    shiny
+)
