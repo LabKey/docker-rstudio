@@ -30,7 +30,7 @@ pacman::p_load(
     pacman,
     plotly,
     readr,
-    rmarkdown
+    rmarkdown,
     # packages rstudio uses
     evaluate,
     digest,
