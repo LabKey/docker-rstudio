@@ -23,4 +23,4 @@ RUN dos2unix install.R && \
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD ["R"]
+CMD ["su", "docker", "-c", "/bin/bash"]
