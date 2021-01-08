@@ -55,5 +55,3 @@ RUN dos2unix install.R && \
     chmod -R 755 /usr/local/lib/R/site-library
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
-CMD ["su", "docker", "-c", "/bin/bash"]
