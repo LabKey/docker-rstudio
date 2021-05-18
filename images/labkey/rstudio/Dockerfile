@@ -1,4 +1,5 @@
-FROM labkey/rstudio-base
+ARG VERSION=latest
+FROM labkey/rstudio-base:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
