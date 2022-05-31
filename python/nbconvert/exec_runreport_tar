@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+write_input_files() 
+{
+    cat /dev/stdin | tar -x              >> console.out 2>&1 
+
+    export SCRIPTNAME
+    if [ -e report_config.json ]
+        SCRIPT_NAME=$(jq < report_config.json .script_name) 	>> console.out 2>&1
+    fi
+    if [ -z $SCRIPT NAME ]
+        SCRIPT_NAME=report.ipynb
+}
+
+
+nbconvert()
+{
+    if [ ! -e $SCRIPT_NAME ] ; then
+        echo Script file not found : $SCRIPT_NAME >> console.out
+        return 1
+    fi
+
+    python3 -m nbconvert -y --clear-output $SCRIPT_NAME >> console.out 2>&1
+    python3 -m nbconvert -y --execute --allow-errors $SCRIPT_NAME --inplace >> console.out 2>&1
+
+    if [ $? -eq 0 ] && [ -f $SCRIPT_NAME ] ; then
+        return 0
+    fi
+    return 1
+}
+
+
+write_output_files()
+{
+    tar * | cat
+}
+
+
+
+export TMP=$(mktemp -d)              >> console.out 2>&1 
+cd $TMP                              >> console.out 2>&1 
+
+write_input_files
+
+nbconvert
+
+EXIT_CODE=$?
+
+write_output_files
+
+cd /                                >> /dev/null
+rm -r $TMP                          >> /dev/null
+exit $EXIT_CODE
