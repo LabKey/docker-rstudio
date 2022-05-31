@@ -9,4 +9,4 @@ RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && dpkg-reconfi
 
 COPY entrypoint exec_runreport_tar execute /
 RUN chmod 777 /entrypoint /exec_runreport_tar /execute
-ENTRYPOINT /entrypoint_sleep
+ENTRYPOINT /entrypoint
