@@ -1,28 +1,35 @@
 #!/bin/bash
 
+export CONSOLE=console.txt
 
 write_input_files() 
 {
-    cat /dev/stdin | tar -x              >> console.out 2>&1 
+    cat /dev/stdin | tar --extract              >> $CONSOLE 2>&1 
 
-    export SCRIPTNAME
-    if [ -e report_config.json ]
-        SCRIPT_NAME=$(jq < report_config.json .script_name) 	>> console.out 2>&1
+    if [ -f report_config.json ] ; then
+        export SCRIPT_NAME=$(jq < report_config.json -r .script_name) 	>> $CONSOLE 2>&1
     fi
-    if [ -z $SCRIPT NAME ]
-        SCRIPT_NAME=report.ipynb
+    if [ -z $SCRIPT NAME ] ; then
+        export SCRIPT_NAME=report.ipynb
+    fi
 }
 
 
 nbconvert()
 {
-    if [ ! -e $SCRIPT_NAME ] ; then
-        echo Script file not found : $SCRIPT_NAME >> console.out
+    if [ -z $SCRIPT_NAME ] ; then
+        echo SCRIPT_NAME variable is empty!
+        return 1
+    fi
+    if [ ! -f $SCRIPT_NAME ] ; then
+        echo Script file not found : $SCRIPT_NAME >> $CONSOLE
         return 1
     fi
 
-    python3 -m nbconvert -y --clear-output $SCRIPT_NAME >> console.out 2>&1
-    python3 -m nbconvert -y --execute --allow-errors $SCRIPT_NAME --inplace >> console.out 2>&1
+    echo $ python3 -m nbconvert -y --clear-output $SCRIPT_NAME                        >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --clear-output $SCRIPT_NAME                               >> $CONSOLE 2>&1
+    echo $ python3 -m nbconvert -y --execute --allow-errors --inplace $SCRIPT_NAME    >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --execute --allow-errors --inplace $SCRIPT_NAME           >> $CONSOLE 2>&1
 
     if [ $? -eq 0 ] && [ -f $SCRIPT_NAME ] ; then
         return 0
@@ -33,13 +40,14 @@ nbconvert()
 
 write_output_files()
 {
-    tar * | cat
+    tar --create --to-stdout * | cat
 }
 
 
-
-export TMP=$(mktemp -d)              >> console.out 2>&1 
-cd $TMP                              >> console.out 2>&1 
+export SCRIPT_NAME=
+export TMP=$(mktemp -d)              >> $CONSOLE 2>&1 
+cd $TMP                              >> $CONSOLE 2>&1 
+date > $CONSOLE
 
 write_input_files
 
@@ -47,8 +55,9 @@ nbconvert
 
 EXIT_CODE=$?
 
+date >> $CONSOLE
 write_output_files
 
 cd /                                >> /dev/null
-rm -r $TMP                          >> /dev/null
+# rm -r $TMP                          >> /dev/null
 exit $EXIT_CODE
