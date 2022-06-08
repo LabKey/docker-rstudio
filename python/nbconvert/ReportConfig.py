@@ -83,7 +83,7 @@ class ReportConfig:
         if not 'sourceQuery' in self.config:
             return None
         q = self.config['sourceQuery']
-        columns = "*"
+        columns = None
         if 'columns' in q:
             columns = q['columns']
         sort = ""
@@ -98,20 +98,23 @@ class ReportConfig:
         parameters = {}
         if 'parameters' in q:
             parameters = q['parameters']
-        containerFilter = None
+        container_filter = None
         if 'containerFilter' in q:
-            containerFilter = q['containerFilter']
+            container_filter = q['containerFilter']
+        required_version=17.1
+        if 'requiredVersion' in q:
+            required_version = q['requiredVersion']
 
         api = self.get_api_wrapper()
         return api.query.select_rows(q['schemaName'], q['queryName'],
-                #containerFilter=containerFilter,
+                container_filter=container_filter,
                 max_rows=-1,
                 offset=0,
                 columns=columns,
                 sort=sort,
                 filter_array=query_filters,
                 parameters=parameters,
-                required_version=q['requiredVersion']
+                required_version=required_version
                 )
 
 
@@ -130,7 +133,8 @@ class ReportConfig:
         return
 
 
-#
-report = ReportConfig(config=config_example)
-data = report.get_source_data()
-print(data)
+#TEST
+if __name__ == '__main__':
+    report = ReportConfig(config=config_example)
+    data = report.get_source_data()
+    print(json.dumps(data))
