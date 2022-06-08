@@ -7,7 +7,7 @@ write_input_files()
     cat /dev/stdin | tar --extract              >> $CONSOLE 2>&1 
 
     if [ -f report_config.json ] ; then
-        export SCRIPT_NAME=$(jq < report_config.json -r .script_name) 	>> $CONSOLE 2>&1
+        export SCRIPT_NAME=$(jq < report_config.json -r .scriptName) 	>> $CONSOLE 2>&1
     fi
     if [ -z $SCRIPT NAME ] ; then
         export SCRIPT_NAME=report.ipynb
@@ -26,10 +26,10 @@ nbconvert()
         return 1
     fi
 
-    echo $ python3 -m nbconvert -y --clear-output $SCRIPT_NAME                        >> $CONSOLE 2>&1
-    python3 -m nbconvert -y --clear-output $SCRIPT_NAME                               >> $CONSOLE 2>&1
-    echo $ python3 -m nbconvert -y --execute --allow-errors --inplace $SCRIPT_NAME    >> $CONSOLE 2>&1
-    python3 -m nbconvert -y --execute --allow-errors --inplace $SCRIPT_NAME           >> $CONSOLE 2>&1
+    echo \$ python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                      >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                             >> $CONSOLE 2>&1
+    echo \$ python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"  >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"         >> $CONSOLE 2>&1
 
     if [ $? -eq 0 ] && [ -f $SCRIPT_NAME ] ; then
         return 0
