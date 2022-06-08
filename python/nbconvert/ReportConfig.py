@@ -22,7 +22,8 @@ config_example = {
         "email" : "user1@test.com",     # optionally passed in via environment
         "parameters" : { 'xmin':0, 'xmax':100, 'type':"sample" },
         "sourceQuery": {
-            "columns":[["X"],["ModifiedBy", "DisplayName"]], 
+            #"columns":[["X"],["ModifiedBy", "DisplayName"]],   # python library doesn't deal with field keys
+            "columns" : ["X", "ModifiedBy/DisplayName"],
             "requiredVersion":17.1, 
             "queryName":"asdf", 
             "schemaName":"lists"
@@ -85,7 +86,7 @@ class ReportConfig:
         q = self.config['sourceQuery']
         columns = None
         if 'columns' in q:
-            columns = q['columns']
+            columns = ",".join(q['columns'])
         sort = ""
         if 'sort' in q:
             sort = q['sort']
