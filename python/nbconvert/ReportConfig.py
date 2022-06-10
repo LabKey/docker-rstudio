@@ -41,7 +41,7 @@ class ReportConfig:
         self.api_key = None
         self.email = None
         self.api = None
-        self.config = {}
+        self.config = {"domain":None, "containerPath":None, "contextPath":None, "useSsl":None}
        
         if config is None:
             if config_file is None and os.path.isfile(DEFAULT_REPORT_CONFIG_FILE):
@@ -49,7 +49,7 @@ class ReportConfig:
             if config_file is not None:
                 config = json.load(open(config_file))
 
-        self.config = dict(config or {})
+        self.config = self.config | dict(config or {})
         if 'parameters' not in self.config:
             self.config['parameters'] = {}
  
@@ -65,12 +65,12 @@ class ReportConfig:
 
         if self.config.get('baseUrl'):
             url = urlparse(self.config.get('baseUrl'))
-            if self.config.get('useSsl') is None:
-                self.config['useSsl'] = url.scheme != 'http'
-            if self.config.get('domain') is None:
-                self.config['domain'] = url.netloc
-            if self.config.get('contextPath') is None:
-                self.config['contextPath'] = url.path
+        if self.config.get('useSsl') is None:
+            self.config['useSsl'] = url.scheme != 'http'
+        if self.config.get('domain') is None:
+            self.config['domain'] = url.netloc
+        if self.config.get('contextPath') is None:
+            self.config['contextPath'] = url.path
 
         if not self.config['domain'] or self.config['containerPath'] is None or self.config['contextPath'] is None or self.config['useSsl'] is None:
             raise Exception("Could not construct LabKey server URL")

@@ -11,6 +11,7 @@ RUN pip install -r /requirements.txt
 
 RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
+COPY ReportConfig.py /
 COPY entrypoint exec_runreport_tar execute /
 RUN chmod 777 /entrypoint /exec_runreport_tar /execute
 ENTRYPOINT /entrypoint
