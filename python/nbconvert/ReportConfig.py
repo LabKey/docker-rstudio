@@ -74,6 +74,10 @@ def get_report_api_wrapper():
     return __api_wrapper
 
 
+def get_report_parameters():
+    return dict(__report_config['parameters'])
+
+
 def get_report_data():
     global __report_config
 
