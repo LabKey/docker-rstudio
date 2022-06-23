@@ -10,7 +10,7 @@ write_input_files()
     if [ -f report_config.json ] ; then
         export SCRIPT_NAME=$(jq < report_config.json -r .scriptName) 	>> $CONSOLE 2>&1
     fi
-    if [ -z $SCRIPT NAME ] ; then
+    if [ -z $SCRIPT_NAME ] ; then
         export SCRIPT_NAME=report.ipynb
     fi
 }
