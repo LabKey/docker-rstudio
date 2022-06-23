@@ -10,7 +10,7 @@ write_input_files()
     if [ -f report_config.json ] ; then
         export SCRIPT_NAME=$(jq < report_config.json -r .scriptName) 	>> $CONSOLE 2>&1
     fi
-    if [ -z $SCRIPT_NAME ] ; then
+    if [ -z "$SCRIPT_NAME" ] ; then
         export SCRIPT_NAME=report.ipynb
     fi
 }
@@ -18,11 +18,11 @@ write_input_files()
 
 nbconvert()
 {
-    if [ -z $SCRIPT_NAME ] ; then
-        echo SCRIPT_NAME variable is empty!
+    if [ -z "$SCRIPT_NAME" ] ; then
+        echo SCRIPT_NAME variable is empty! >> $CONSOLE
         return 1
     fi
-    if [ ! -f $SCRIPT_NAME ] ; then
+    if [ ! -f "$SCRIPT_NAME" ] ; then
         echo Script file not found : $SCRIPT_NAME >> $CONSOLE
         return 1
     fi
@@ -32,7 +32,7 @@ nbconvert()
     echo \$ python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"  >> $CONSOLE 2>&1
     python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"         >> $CONSOLE 2>&1
 
-    if [ $? -eq 0 ] && [ -f $SCRIPT_NAME ] ; then
+    if [ $? -eq 0 ] && [ -f "$SCRIPT_NAME" ] ; then
         return 0
     fi
     return 1
@@ -41,13 +41,13 @@ nbconvert()
 
 write_output_files()
 {
-    tar --create --to-stdout * | cat
+    tar --create --to-stdout ./* | cat
 }
 
 
 export SCRIPT_NAME=
 export TMP=$(mktemp -d)              >> $CONSOLE 2>&1 
-cd $TMP                              >> $CONSOLE 2>&1 
+cd "$TMP"                            >> $CONSOLE 2>&1 
 date > $CONSOLE
 
 write_input_files
@@ -61,4 +61,8 @@ write_output_files
 
 cd /                                >> /dev/null
 # rm -r $TMP                          >> /dev/null
+if [ ! $EXIT_CODE -eq 0 ] ; then
+    echo "Something went wrong"
+    cat $CONSOLE >&2
+fi
 exit $EXIT_CODE
