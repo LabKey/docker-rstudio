@@ -4,7 +4,11 @@ export CONSOLE=console.txt
 
 write_input_files() 
 {
-    cat /dev/stdin | tar --extract              >> $CONSOLE 2>&1 
+    mv /reportInput/* .
+    if [ ! "$(ls -A .)" ]; then
+        echo "No report input provided" >> $CONSOLE
+        return 1
+    fi
     cp /ReportConfig.py .
 
     if [ -f report_config.json ] ; then
@@ -45,7 +49,7 @@ write_output_files()
 }
 
 
-export SCRIPT_NAME=
+export SCRIPT_NAME=report.ipynb
 export TMP=$(mktemp -d)              >> $CONSOLE 2>&1 
 cd "$TMP"                            >> $CONSOLE 2>&1 
 date > $CONSOLE
