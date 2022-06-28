@@ -62,7 +62,7 @@ write_output_files
 cd /                                >> /dev/null
 # rm -r $TMP                          >> /dev/null
 if [ ! $EXIT_CODE -eq 0 ] ; then
-    echo "Something went wrong"
+    echo "Something went wrong" >&2
     cat $CONSOLE >&2
 fi
 exit $EXIT_CODE
