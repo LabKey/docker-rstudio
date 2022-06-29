@@ -34,12 +34,12 @@ def __report_config_init(config_json=None, config_file=None):
 
     if os.getenv(__APIKEY_ENV):
         __api_key = os.getenv(__APIKEY_ENV)
-    if __report_config.get("apiKey"):
+    elif __report_config.get("apiKey"):
         __api_key = __report_config.get("apiKey")
 
     if os.getenv(__USER_EMAIL_ENV):
         __email = os.getenv(__USER_EMAIL_ENV)
-    if __report_config.get("email"):
+    elif __report_config.get("email"):
         __email = __report_config.get("email")
 
     if __report_config.get('baseUrl'):
