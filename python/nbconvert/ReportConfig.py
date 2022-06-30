@@ -1,4 +1,5 @@
 from labkey.api_wrapper import APIWrapper
+from labkey.query import QueryFilter
 import json
 import os
 from urllib.parse import urlparse
@@ -75,6 +76,9 @@ def get_report_api_wrapper():
 
 
 def get_report_parameters():
+    global __report_config
+
+    __report_config_init()
     return dict(__report_config['parameters'])
 
 
@@ -97,7 +101,8 @@ def get_report_data():
         array = q['filterArray']
         for i in range(0,len(array)):
             f = array[i]
-            query_filters.add(QueryFilter(f[0],f[1],f[2]))
+            query_filters.append(QueryFilter('/'.join(f['fieldKey']),f['value'],f['type']))
+
     parameters = {}
     if 'parameters' in q:
         parameters = q['parameters']
