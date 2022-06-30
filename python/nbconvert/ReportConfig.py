@@ -101,7 +101,8 @@ def get_report_data():
         array = q['filterArray']
         for i in range(0,len(array)):
             f = array[i]
-            query_filters.append(QueryFilter('/'.join(f['fieldKey']),f['value'],f['type']))
+            fVal = f.get('value') if f.get('value') else ''
+            query_filters.append(QueryFilter('/'.join(f['fieldKey']), fVal, f['type']))
 
     parameters = {}
     if 'parameters' in q:
