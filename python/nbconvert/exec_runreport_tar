@@ -11,8 +11,8 @@ write_input_files()
     # this is needed until labkey-api-python is updated
     cp /ReportConfig.py .
 
-    if [ -f report_config.json ] ; then
-        export SCRIPT_NAME=$(jq < report_config.json -r .scriptName) 	>> $CONSOLE 2>&1
+    if [ -f "$REPORT_CONFIG" ] ; then
+        export SCRIPT_NAME=$(jq < "$REPORT_CONFIG" -r .scriptName) 	>> $CONSOLE 2>&1
     fi
     if [ -z "$SCRIPT_NAME" ] ; then
         export SCRIPT_NAME=report.ipynb
@@ -49,11 +49,15 @@ write_output_files()
 }
 
 
-export SCRIPT_NAME=report.ipynb
 if [ ! -d "$WORKING_DIRECTORY" ] ; then
   exit 100
 fi
-cd "$WORKING_DIRECTORY"               >> $CONSOLE 2>&1
+cd "$WORKING_DIRECTORY"               >> /dev/null
+export SCRIPT_NAME=report.ipynb
+if [ -z "$REPORT_CONFIG" ] ; then
+  export REPORT_CONFIG=report_config.json
+fi
+
 date >> $CONSOLE
 
 write_input_files

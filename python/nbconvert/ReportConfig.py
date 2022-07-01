@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 __DEFAULT_REPORT_CONFIG_FILE = 'report_config.json'
 __USER_EMAIL_ENV = "LABKEY_EMAIL"       # note USER is common UNIX env, don't use
 __APIKEY_ENV = "LABKEY_API_KEY"
+__REPORT_CONFIG_ENV = "REPORT_CONFIG"
 
 __api_key = None
 __email = None
@@ -16,7 +17,7 @@ __api_wrapper = None
 
 
 def __report_config_init(config_json=None, config_file=None):
-    global __DEFAULT_REPORT_CONFIG_FILE, __USER_EMAIL_ENV, __APIKEY_ENV
+    global __DEFAULT_REPORT_CONFIG_FILE, __USER_EMAIL_ENV, __APIKEY_ENV, __REPORT_CONFIG_ENV
     global __api_key, __email, __report_config
 
     if __report_config is not None:
@@ -24,8 +25,12 @@ def __report_config_init(config_json=None, config_file=None):
     __report_config = {"domain":None, "containerPath":None, "contextPath":None, "useSsl":None}
 
     if config_json is None:
-        if config_file is None and os.path.isfile(__DEFAULT_REPORT_CONFIG_FILE):
-            config_file = __DEFAULT_REPORT_CONFIG_FILE
+        if config_file is None:
+            env_config = os.getenv(__REPORT_CONFIG_ENV)
+            if env_config and os.path.isfile(env_config):
+                config_file = env_config
+            elif os.path.isfile(__DEFAULT_REPORT_CONFIG_FILE):
+                config_file = __DEFAULT_REPORT_CONFIG_FILE
         if config_file is not None:
             config_json = json.load(open(config_file))
 
