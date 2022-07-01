@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /reportInput
+cd "$WORKING_DIRECTORY"
 tar --create --to-stdout ./* | cat
