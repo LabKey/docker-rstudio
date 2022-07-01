@@ -4,11 +4,11 @@ export CONSOLE=console.txt
 
 write_input_files() 
 {
-    mv /reportInput/* .
     if [ ! "$(ls -A .)" ]; then
         echo "No report input provided" >> $CONSOLE
-        return 1
+        return 101
     fi
+    # this is needed until labkey-api-python is updated
     cp /ReportConfig.py .
 
     if [ -f report_config.json ] ; then
@@ -24,22 +24,22 @@ nbconvert()
 {
     if [ -z "$SCRIPT_NAME" ] ; then
         echo SCRIPT_NAME variable is empty! >> $CONSOLE
-        return 1
+        return 102
     fi
     if [ ! -f "$SCRIPT_NAME" ] ; then
         echo Script file not found : $SCRIPT_NAME >> $CONSOLE
-        return 1
+        return 103
     fi
 
     echo \$ python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                      >> $CONSOLE 2>&1
-    python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                             >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                              >> $CONSOLE 2>&1
     echo \$ python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"  >> $CONSOLE 2>&1
-    python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"         >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"          >> $CONSOLE 2>&1
 
     if [ $? -eq 0 ] && [ -f "$SCRIPT_NAME" ] ; then
         return 0
     fi
-    return 1
+    return 104
 }
 
 
@@ -50,9 +50,11 @@ write_output_files()
 
 
 export SCRIPT_NAME=report.ipynb
-export TMP=$(mktemp -d)              >> $CONSOLE 2>&1 
-cd "$TMP"                            >> $CONSOLE 2>&1 
-date > $CONSOLE
+if [ ! -d "$WORKING_DIRECTORY" ] ; then
+  exit 100
+fi
+cd "$WORKING_DIRECTORY"               >> $CONSOLE 2>&1
+date >> $CONSOLE
 
 write_input_files
 
@@ -64,7 +66,7 @@ date >> $CONSOLE
 write_output_files
 
 cd /                                >> /dev/null
-# rm -r $TMP                          >> /dev/null
+# rm -r "$WORKING_DIRECTORY"          >> /dev/null
 if [ ! $EXIT_CODE -eq 0 ] ; then
     echo "Something went wrong" >&2
     cat $CONSOLE >&2
