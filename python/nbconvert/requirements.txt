@@ -1,0 +1,8 @@
+cython
+Fraction
+labkey
+matplotlib
+numpy
+pandas
+scipy
+sympy

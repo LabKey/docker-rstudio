@@ -1,0 +1,78 @@
+#!/bin/bash
+
+export CONSOLE=console.txt
+
+write_input_files() 
+{
+    if [ ! "$(ls -A .)" ]; then
+        echo "No report input provided" >> $CONSOLE
+        return 101
+    fi
+    # this is needed until labkey-api-python is updated
+    cp /ReportConfig.py .
+
+    if [ -f "$REPORT_CONFIG" ] ; then
+        export SCRIPT_NAME=$(jq < "$REPORT_CONFIG" -r .scriptName) 	>> $CONSOLE 2>&1
+    fi
+    if [ -z "$SCRIPT_NAME" ] ; then
+        export SCRIPT_NAME=report.ipynb
+    fi
+}
+
+
+nbconvert()
+{
+    if [ -z "$SCRIPT_NAME" ] ; then
+        echo SCRIPT_NAME variable is empty! >> $CONSOLE
+        return 102
+    fi
+    if [ ! -f "$SCRIPT_NAME" ] ; then
+        echo Script file not found : $SCRIPT_NAME >> $CONSOLE
+        return 103
+    fi
+
+    echo \$ python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                      >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --clear-output "$SCRIPT_NAME"                              >> $CONSOLE 2>&1
+    echo \$ python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"  >> $CONSOLE 2>&1
+    python3 -m nbconvert -y --execute --allow-errors --inplace "$SCRIPT_NAME"          >> $CONSOLE 2>&1
+
+    if [ $? -eq 0 ] && [ -f "$SCRIPT_NAME" ] ; then
+        return 0
+    fi
+    return 104
+}
+
+
+write_output_files()
+{
+    tar --create --to-stdout ./* | cat
+}
+
+
+if [ ! -d "$WORKING_DIRECTORY" ] ; then
+  exit 100
+fi
+cd "$WORKING_DIRECTORY"               >> /dev/null
+export SCRIPT_NAME=report.ipynb
+if [ -z "$REPORT_CONFIG" ] ; then
+  export REPORT_CONFIG=report_config.json
+fi
+
+date >> $CONSOLE
+
+write_input_files
+
+nbconvert
+
+EXIT_CODE=$?
+
+date >> $CONSOLE
+write_output_files
+
+cd /                                >> /dev/null
+# rm -r "$WORKING_DIRECTORY"          >> /dev/null
+if [ ! $EXIT_CODE -eq 0 ] ; then
+    echo "Something went wrong" >&2
+    cat $CONSOLE >&2
+fi
+exit $EXIT_CODE

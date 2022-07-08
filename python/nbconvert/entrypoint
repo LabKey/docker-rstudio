@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ ! -e $TEMP_DIRECTORY ] ; then
+	mkdir -p $TEMP_DIRECTORY
+fi
+
+while true ; do sleep 1 ; done

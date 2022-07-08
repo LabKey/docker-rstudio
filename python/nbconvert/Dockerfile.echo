@@ -1,0 +1,11 @@
+FROM python
+ENV LANG=C.UTF-8
+
+RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
+
+RUN mkdir /reportInput
+
+COPY entrypoint / 
+COPY exec_echo /execute
+RUN chmod 777 /entrypoint /execute
+ENTRYPOINT /entrypoint
