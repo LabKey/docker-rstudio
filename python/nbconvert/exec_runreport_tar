@@ -69,7 +69,8 @@ EXIT_CODE=$?
 date >> $CONSOLE
 write_output_files
 
-cd /                                >> /dev/null
+# cd /                                >> /dev/null
+cd $LAMBDA_TASK_ROOT                                 >> /dev/null
 # rm -r "$WORKING_DIRECTORY"          >> /dev/null
 if [ ! $EXIT_CODE -eq 0 ] ; then
     echo "Something went wrong" >&2

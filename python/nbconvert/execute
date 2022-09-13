@@ -1,2 +1,3 @@
 #!/bin/bash
-source /exec_runreport_tar
+# source /exec_runreport_tar
+source $LAMBDA_TASK_ROOT/exec_runreport_tar

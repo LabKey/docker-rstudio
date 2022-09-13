@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/willmooreston/dev/docker-rstudio'
+make: Leaving directory `/Users/willmooreston/dev/docker-rstudio'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

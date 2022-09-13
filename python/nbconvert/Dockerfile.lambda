@@ -1,0 +1,31 @@
+FROM public.ecr.aws/lambda/python:3.9
+ENV LANG=C.UTF-8
+
+# Copy function code
+COPY app.py ${LAMBDA_TASK_ROOT}
+
+# RUN apt-get update -y && apt-get dist-upgrade -y
+# RUN apt-get install -y jq
+
+# RUN yum install epel-release -y
+RUN yum update -y
+RUN yum install jq -y
+
+RUN python3 -m pip install --upgrade pip
+RUN pip install jupyterlab
+
+# Install the function's dependencies using file requirements.txt
+# from your project folder.
+
+COPY requirements.txt  .
+RUN  pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+
+# RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
+
+COPY ReportConfig.py "${LAMBDA_TASK_ROOT}"/
+COPY entrypoint exec_runreport_tar execute "${LAMBDA_TASK_ROOT}"/
+RUN chmod 777 "${LAMBDA_TASK_ROOT}"/entrypoint "${LAMBDA_TASK_ROOT}"/exec_runreport_tar "${LAMBDA_TASK_ROOT}"/execute
+# ENTRYPOINT "${LAMBDA_TASK_ROOT}"/entrypoint
+
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD [ "app.handler" ] 
