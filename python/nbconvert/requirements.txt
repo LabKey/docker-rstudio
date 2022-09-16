@@ -1,5 +1,7 @@
+boto3
 cython
 Fraction
+invoke
 labkey
 matplotlib
 numpy
