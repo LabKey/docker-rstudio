@@ -33,3 +33,23 @@ install.packages(c(
   "rsconnect"
   ),
   repos='https://cran.rstudio.com/')
+install.packages(c(
+  "latticeExtra",
+  "lme4",
+  "lmtest",
+  "openssl",
+  "plotly",
+  "plyr",
+  "png",
+  "readxl",
+  "reshape2",
+  "RSQLite",
+  "stringr",
+  "stringi",
+  "tidyverse",
+  "tibble",
+  "tidyr"
+  ),
+  repos='https://cran.rstudio.com/')
+install.packages("BiocManager", repos = "https://cloud.r-project.org")
+BiocManager::install(c("flowWorkspace", "CytoML"))
