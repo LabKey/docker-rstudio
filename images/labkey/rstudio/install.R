@@ -48,8 +48,17 @@ install.packages(c(
   "stringi",
   "tidyverse",
   "tibble",
-  "tidyr"
+  "tidyr",
+  "devtools"
   ),
   repos='https://cran.rstudio.com/')
 install.packages("BiocManager", repos = "https://cloud.r-project.org")
-BiocManager::install(c("flowWorkspace", "CytoML"))
+
+
+library(BiocManager)
+library(devtools)
+
+BiocManager::install("openCyto")
+
+install_github("RGLab/flowWorkspace")
+install_github("RGLab/openCyto")
