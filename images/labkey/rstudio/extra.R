@@ -13,23 +13,31 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 ##
-install.packages("PKI",repos="http://rforge.net")
+install.packages("BiocManager", repos = "https://cloud.r-project.org")
+install.packages("devtools", repos = "https://cloud.r-project.org/")
 install.packages(c(
-  "Rlabkey", "Cairo", "ggplot2", "plotly", "httr", "readr", "data.table",
-# packages rstudio uses,
-  "evaluate",
-  "digest",
-  "formatR",
-  "highr",
-  "markdown",
-  "yaml",
-  "htmltools",
-  "caTools",
-  "knitr",
-  "rmarkdown",
-  "RJSONIO",
-  "rstudioapi",
-  "packrat",
-  "rsconnect"
+  "latticeExtra",
+  "lme4",
+  "lmtest",
+  "openssl",
+  "plotly",
+  "plyr",
+  "png",
+  "readxl",
+  "reshape2",
+  "RSQLite",
+  "stringr",
+  "stringi",
+  "tidyverse",
+  "tibble",
+  "tidyr"
   ),
   repos='https://cran.rstudio.com/')
+
+library(BiocManager)
+library(devtools)
+
+BiocManager::install("openCyto")
+
+install_github("RGLab/flowWorkspace")
+install_github("RGLab/openCyto")
