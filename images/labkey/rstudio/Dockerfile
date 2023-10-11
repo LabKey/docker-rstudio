@@ -19,3 +19,8 @@ COPY extra.R /
 RUN dos2unix extra.R && \
     R --no-site-file -f extra.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
+
+COPY bioConductor.R /
+RUN dos2unix bioConductor.R && \
+    R --no-site-file -f bioConductor.R &&  \
+    chmod -R 755 /usr/local/lib/R/site-library

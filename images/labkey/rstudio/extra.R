@@ -33,11 +33,3 @@ install.packages(c(
   "tidyr"
   ),
   repos='https://cran.rstudio.com/')
-
-library(BiocManager)
-library(devtools)
-
-BiocManager::install("openCyto")
-
-install_github("RGLab/flowWorkspace")
-install_github("RGLab/openCyto")
