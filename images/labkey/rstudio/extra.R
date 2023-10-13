@@ -16,6 +16,15 @@
 install.packages("BiocManager", repos = "https://cloud.r-project.org")
 install.packages("devtools", repos = "https://cloud.r-project.org/")
 install.packages(c(
+  "locfit",
+  "ks",
+  "hdrcde",
+  "rainbow",
+  "fds",
+  "fda"
+  ),
+  repos='https://cran.rstudio.com/')
+install.packages(c(
   "latticeExtra",
   "lme4",
   "lmtest",
