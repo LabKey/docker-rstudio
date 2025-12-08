@@ -8,7 +8,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY conf /etc/cont-init.d/
-RUN dos2unix /etc/cont-init.d/conf
 
 COPY install.R /
 RUN R --no-site-file -f install.R &&  \
