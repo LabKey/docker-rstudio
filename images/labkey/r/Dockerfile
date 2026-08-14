@@ -4,7 +4,7 @@ FROM ubuntu:${VERSION}
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common
     
-RUN apt-get install -y --no-install-recommends build-essential dos2unix libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common
+RUN apt-get install -y --no-install-recommends build-essential libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common
 
 # NOTE much faster to use apt to install prebuilt packages than using "install.packages()"
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \ 

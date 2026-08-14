@@ -10,6 +10,5 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY install.R /
-RUN dos2unix install.R && \
-    R --no-site-file -f install.R &&  \
+RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library

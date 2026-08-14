@@ -3,7 +3,7 @@ FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev sudo && \
+    apt-get install -y --no-install-recommends nano procps libxml2-dev xvfb zlib1g-dev sudo && \
     apt-get install -y --no-install-recommends  \
 	    curl libcurl4-openssl-dev \
         libgd-dev libcairo2 libcairo2-dev libxt-dev pandoc \
@@ -29,8 +29,7 @@ RUN useradd docker \
 ## do not use apt-get install r-cran-* to install R packages on this stack
 ## see rocker/r-ver (see https://hub.docker.com/r/rocker/r-ver/)
 COPY install.R /
-RUN dos2unix install.R && \
-    R --no-site-file -f install.R &&  \
+RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
 
 CMD ["su", "docker", "-c", "/bin/bash"]
