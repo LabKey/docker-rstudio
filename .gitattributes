@@ -1,10 +1,7 @@
 * text=auto
 
-# These files get COPY'd into Docker images and run/sourced as Unix scripts
-# (some Dockerfiles currently run `dos2unix` on them as a workaround). Force
-# LF line endings on checkout so a fresh enlistment is always correct,
-# regardless of the checkout machine's core.autocrlf setting.
-install.R text eol=lf
-conf text eol=lf
-Rprofile.site text eol=lf
-cleanupSessionFiles.sh text eol=lf
+# Files under a files/ directory are COPY'd into Docker images and
+# run/sourced as Unix scripts. Force LF line endings on checkout so a
+# fresh enlistment is always correct, regardless of the checkout
+# machine's core.autocrlf setting.
+**/files/** text eol=lf
