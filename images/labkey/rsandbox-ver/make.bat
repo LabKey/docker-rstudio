@@ -1,1 +1,0 @@
-docker build --build-arg VERSION=3.4.2 -t labkey/rsandbox:3.4.2 .

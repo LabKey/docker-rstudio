@@ -8,4 +8,3 @@ install.R text eol=lf
 conf text eol=lf
 Rprofile.site text eol=lf
 cleanupSessionFiles.sh text eol=lf
-rstudio-singleuser text eol=lf
