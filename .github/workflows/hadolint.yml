@@ -13,9 +13,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-      - name: Run hadolint
+      - name: Run hadolint (Dockerfile, recursive)
         uses: hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: Dockerfile
+          recursive: true
+          failure-threshold: 'warning'
+          ignore: 'DL3008'  # Don't worry about pinning versions
+      - name: Run hadolint (Dockerfile.echo)
+        uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: python/nbconvert/Dockerfile.echo
           failure-threshold: 'warning'
           ignore: 'DL3008'  # Don't worry about pinning versions
