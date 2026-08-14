@@ -1,6 +1,8 @@
 ARG VERSION=4.0.5
 FROM rocker/rstudio:${VERSION}
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
     apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev && \
