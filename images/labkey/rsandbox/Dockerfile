@@ -3,7 +3,7 @@ FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common && \
-	apt-get install -y --no-install-recommends build-essential libopenblas-dev libxml2-dev nano pandoc procps xvfb x11-common && \
+	apt-get install -y --no-install-recommends build-essential libopenblas-dev libxml2-dev nano pandoc procps xvfb x11-common libuv1-dev && \
 	apt-get install -y --no-install-recommends sudo && \
 	apt-get install -y --no-install-recommends  \
 		curl libcurl4-openssl-dev \
