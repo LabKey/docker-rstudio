@@ -1,4 +1,4 @@
-ARG VERSION=18.04
+ARG VERSION=24.04
 FROM ubuntu:${VERSION}
 
 RUN apt-get update && \
@@ -30,7 +30,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     r-cran-stringr \
     r-cran-tidyr 
 
-COPY install.R /tmp/
+COPY files/install.R /tmp/
 RUN R --vanilla -f /tmp/install.R 
 
 RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && \
