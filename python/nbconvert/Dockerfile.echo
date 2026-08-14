@@ -5,7 +5,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && dpkg-reconfi
 
 RUN mkdir /reportInput
 
-COPY entrypoint / 
-COPY exec_echo /execute
+COPY files/entrypoint /
+COPY files/exec_echo /execute
 RUN chmod 777 /entrypoint /execute
 ENTRYPOINT /entrypoint

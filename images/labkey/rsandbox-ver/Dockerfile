@@ -28,7 +28,7 @@ RUN useradd docker \
 
 ## do not use apt-get install r-cran-* to install R packages on this stack
 ## see rocker/r-ver (see https://hub.docker.com/r/rocker/r-ver/)
-COPY install.R /
+COPY files/install.R /
 RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
 

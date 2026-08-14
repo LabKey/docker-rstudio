@@ -7,17 +7,17 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY conf /etc/cont-init.d/
+COPY files/conf /etc/cont-init.d/
 
-COPY install.R /
+COPY files/install.R /
 RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/library && \
     chmod -R 755 /usr/local/lib/R/site-library
 
-COPY Rprofile.site /Rprofile.site.tmp
+COPY files/Rprofile.site /Rprofile.site.tmp
 RUN cat /Rprofile.site.tmp >> /usr/local/lib/R/etc/Rprofile.site && \
     rm /Rprofile.site.tmp
 RUN echo "R_LIBS_USER=~/R/$(R --version | grep -Eo '[0-9]+[.]+[0-9]+')/library" >> /usr/local/lib/R/etc/Renviron
 
-COPY cleanupSessionFiles.sh /
+COPY files/cleanupSessionFiles.sh /
 RUN chmod 755 /cleanupSessionFiles.sh

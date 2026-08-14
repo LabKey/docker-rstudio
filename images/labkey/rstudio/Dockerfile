@@ -9,6 +9,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY install.R /
+COPY files/install.R /
 RUN R --no-site-file -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
