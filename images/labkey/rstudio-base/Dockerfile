@@ -1,4 +1,4 @@
-ARG VERSION=4.0.5
+ARG VERSION=latest
 FROM rocker/rstudio:${VERSION}
 
 RUN apt-get update && \
