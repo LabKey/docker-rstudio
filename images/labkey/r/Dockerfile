@@ -2,12 +2,9 @@ ARG VERSION=24.04
 FROM ubuntu:${VERSION}
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common
-    
-RUN apt-get install -y --no-install-recommends build-essential libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common
-
-# NOTE much faster to use apt to install prebuilt packages than using "install.packages()"
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
+    apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common && \
+    apt-get install -y --no-install-recommends build-essential libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     r-base \
     r-cran-bitops \
     r-cran-cairo \
@@ -28,12 +25,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     r-cran-markdown \
     r-cran-scales \
     r-cran-stringr \
-    r-cran-tidyr 
+    r-cran-tidyr && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY files/install.R /tmp/
-RUN R --vanilla -f /tmp/install.R 
+RUN R --vanilla -f /tmp/install.R
 
-RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles/etc/localtime && \
+RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 RUN R --version
