@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev && \
+    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev libuv1-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
