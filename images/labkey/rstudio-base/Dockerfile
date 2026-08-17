@@ -24,5 +24,5 @@ RUN dos2unix /Rprofile.site.tmp && \
 RUN echo "R_LIBS_USER=~/R/$(R --version | grep -Eo '[0-9]+[.]+[0-9]+')/library" >> /usr/local/lib/R/etc/Renviron
 
 COPY cleanupSessionFiles.sh /
-RUN dos2unix /cleanupSessionFiles.sh
-RUN chmod 755 /cleanupSessionFiles.sh
+RUN dos2unix /cleanupSessionFiles.sh && \
+    chmod 755 /cleanupSessionFiles.sh
