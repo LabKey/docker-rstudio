@@ -1,9 +1,11 @@
 ARG VERSION=4.0.5
 FROM rocker/rstudio:${VERSION}
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev && \
+    apt-get install -y --no-install-recommends dos2unix nano procps libxml2-dev xvfb zlib1g-dev libuv1-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -22,5 +24,5 @@ RUN dos2unix /Rprofile.site.tmp && \
 RUN echo "R_LIBS_USER=~/R/$(R --version | grep -Eo '[0-9]+[.]+[0-9]+')/library" >> /usr/local/lib/R/etc/Renviron
 
 COPY cleanupSessionFiles.sh /
-RUN dos2unix /cleanupSessionFiles.sh
-RUN chmod 755 /cleanupSessionFiles.sh
+RUN dos2unix /cleanupSessionFiles.sh && \
+    chmod 755 /cleanupSessionFiles.sh
