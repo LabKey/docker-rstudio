@@ -6,6 +6,9 @@ name: hadolint
     branches:
       - develop
 
+permissions:
+  contents: read
+
 jobs:
   hadolint:
     name: hadolint

@@ -10,6 +10,9 @@ name: PR Validation
       - reopened
       - ready_for_review
 
+permissions:
+  contents: read
+
 jobs:
   validate_pr:
     if: github.event.pull_request.head.repo.owner.login == 'LabKey'

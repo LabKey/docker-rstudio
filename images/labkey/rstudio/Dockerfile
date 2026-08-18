@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends  \
 	curl libcurl4-openssl-dev \
         libgd-dev libcairo2 libcairo2-dev libxt-dev pandoc \
-        libssl-dev openssl libuv1-dev && \
+        libssl-dev openssl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
