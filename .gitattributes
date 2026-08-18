@@ -1,1 +1,7 @@
 * text=auto
+
+# Files under a files/ directory are COPY'd into Docker images and
+# run/sourced as Unix scripts. Force LF line endings on checkout so a
+# fresh enlistment is always correct, regardless of the checkout
+# machine's core.autocrlf setting.
+**/files/** text eol=lf

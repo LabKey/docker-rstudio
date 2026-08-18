@@ -1,9 +1,9 @@
-ARG VERSION=18.04
+ARG VERSION=24.04
 FROM ubuntu:${VERSION}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-transport-https apt-utils software-properties-common && \
-    apt-get install -y --no-install-recommends build-essential dos2unix libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common && \
+    apt-get install -y --no-install-recommends build-essential libopenblas-dev libssl-dev libxml2-dev nano pandoc procps xvfb x11-common && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     r-base \
     r-cran-bitops \
@@ -29,7 +29,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY install.R /tmp/
+COPY files/install.R /tmp/
 RUN R --vanilla -f /tmp/install.R
 
 RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime && \
