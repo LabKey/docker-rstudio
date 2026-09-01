@@ -1,4 +1,4 @@
-ARG VERSION=3.6.3
+ARG VERSION=4.5.1
 FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \
@@ -30,7 +30,7 @@ RUN useradd docker || true \
 
 COPY install.R /
 RUN dos2unix install.R && \
-    R --no-site-file -f install.R &&  \
+    R -f install.R &&  \
     chmod -R 755 /usr/local/lib/R/site-library
 
 CMD ["su", "docker", "-c", "/bin/bash"]

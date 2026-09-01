@@ -14,9 +14,7 @@
 #  limitations under the License.
 ##
 
-repos.options <- getOption("repos")
-repos.options["CRAN"] <- 'https://cran.rstudio.com/'
-options(repos = repos.options)
+# Repos come from the base image's Rprofile.site: a pinned P3M snapshot that serves binaries.
 
 if (!require("pacman")) install.packages("pacman")
 
