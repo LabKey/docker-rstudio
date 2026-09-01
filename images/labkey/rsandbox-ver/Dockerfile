@@ -1,4 +1,4 @@
-ARG VERSION=3.6.3
+ARG VERSION=4.5.1
 FROM rocker/r-ver:${VERSION}
 
 RUN apt-get update && \

@@ -1,13 +1,13 @@
 labkey/rsandbox:latest
 ======
 
-Dockerfile for building Dockerized LabKey R image using with the latest R release version. 
+Dockerfile for building a Dockerized LabKey R image.
 
-Run `./make` to generate R image `labkey/rsandbox:latest`. 
+Run `./make` to generate R image `labkey/rsandbox:latest`.
 
-Note that actual R version might differ based on latest R version at the time the image is built. 
+The R version is pinned by `ARG VERSION` in the Dockerfile. Override it per-build with `./make --build-arg VERSION=<version>`, but note that tags older than R 4.0 are based on EOL Debian releases whose apt mirrors no longer resolve.
 
-To tag the image with the actual R version at the time of build, change `latest` in `make` file to the latest R version, for example: `3.5.1`.
+To tag the image with the R version instead of `latest`, change `latest` in the `make` file, for example: `4.5.1`.
 
 For more information, see:
 
